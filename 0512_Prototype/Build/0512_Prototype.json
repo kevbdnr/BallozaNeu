@@ -1,0 +1,16 @@
+{
+"companyName": "DefaultCompany",
+"productName": "Balloza_NEW",
+"productVersion": "0.1",
+"dataUrl": "0512_Prototype.data.unityweb",
+"wasmCodeUrl": "0512_Prototype.wasm.code.unityweb",
+"wasmFrameworkUrl": "0512_Prototype.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.3.4f1"
+}
