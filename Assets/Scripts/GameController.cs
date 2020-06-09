@@ -38,7 +38,10 @@ public class GameController : MonoBehaviour
         GameUI.SetInitialDisplayedKnifeCount(knifeCount);
         //also spawn the first knife
         SpawnKnife();
+
+
     }
+
 
     //this will be called from KnifeScript
     public void OnSuccessfulKnifeHit()
