@@ -34,7 +34,14 @@ public class GameUI : MonoBehaviour
     //changing the color of the image to represent a thrown (used) knife
     public void DecrementDisplayedKnifeCount()
     {
-        panelKnives.transform.GetChild(knifeIconIndexToChange++)
+        panelKnives.transform.GetChild(knifeIconIndexToChange)
             .GetComponent<Image>().color = usedKnifeIconColor;
-    }
+
+		knifeIconIndexToChange++;
+		if (knifeIconIndexToChange >= panelKnives.transform.childCount)
+		{
+			knifeIconIndexToChange = 0;
+		}
+
+	}
 }

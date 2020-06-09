@@ -45,7 +45,7 @@ public class KnifeScript : MonoBehaviour
         isActive = false;
 
         //collision with a log
-        if (collision.collider.tag == "Log")
+        if (collision.collider.name.StartsWith("Log"))
         {
             //play the particle effect on collision,
             //you don't always have to store the component in a field...
@@ -76,12 +76,16 @@ public class KnifeScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Arrow-White-11"))
+        if (other.name.StartsWith("Log"))
        
         {
-            Destroy(other.gameObject);
-            // GameController.Instance.OnSuccessfulKnifeHit();
-        }
+			if (other.GetComponent<SpriteRenderer>().color == GetComponent<SpriteRenderer>().color)
+			{ 
+				Destroy(other.gameObject);
+				GameController.Instance.OnSuccessfulKnifeHit();
+				Destroy(gameObject);
+			}
+		}
 
 
     }

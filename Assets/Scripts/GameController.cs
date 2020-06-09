@@ -1,6 +1,8 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 //this script cannot function properly without GameUI
 //let Unity know about it with this attribute
@@ -24,6 +26,7 @@ public class GameController : MonoBehaviour
     //reference to the GameUI on GameController's game object
     public GameUI GameUI { get; private set; }
 
+
     private void Awake()
     {
         //simple kind of a singleton instance (we're only in 1 scene)
@@ -34,21 +37,34 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        //update the UI as soon as the game starts
-        GameUI.SetInitialDisplayedKnifeCount(knifeCount);
-        //also spawn the first knife
-        SpawnKnife();
+
+		//update the UI as soon as the game starts
+		GameUI.SetInitialDisplayedKnifeCount(knifeCount);
+		//also spawn the first knife
+
+		SpawnKnife(GetRandomBalloonColor());
 
 
     }
 
 
-    //this will be called from KnifeScript
-    public void OnSuccessfulKnifeHit()
+	private Color GetRandomBalloonColor()
+	{
+		List<Color> colors = new List<Color>();
+		//find colors on balloons
+		foreach (Transform balloonsT in GameObject.Find("LogMotor").transform)
+		{
+			colors.Add(balloonsT.GetComponent<SpriteRenderer>().color);
+		}
+		return colors[Random.Range(0, colors.Count)];
+	}
+
+	//this will be called from KnifeScript
+	public void OnSuccessfulKnifeHit()
     {
         if (knifeCount > 0)
         {
-            SpawnKnife();
+            SpawnKnife(GetRandomBalloonColor());
         }
         else
         {
@@ -57,10 +73,11 @@ public class GameController : MonoBehaviour
     }
 
     //a pretty self-explanatory method
-    private void SpawnKnife()
+    private void SpawnKnife(Color color)
     {
         knifeCount--;
-        Instantiate(knifeObject, knifeSpawnPosition, Quaternion.identity);
+        var kniveGO = Instantiate(knifeObject, knifeSpawnPosition, Quaternion.identity);
+		kniveGO.GetComponent<SpriteRenderer>().color = color;
     }
 
     //the public method for starting game over
